@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+
 @Service
 public class PizzaService {
 
@@ -28,11 +29,12 @@ public class PizzaService {
 		return pizzaRepo.findById(id);
 	}
 	
-	public void deletePizzaById(int id) {
-		pizzaRepo.deleteById(id);
+	public void delete(Pizza pizza) {
+		pizzaRepo.delete(pizza);
 	}
 	
 	public List<Pizza> findByName(String name) {
 		return pizzaRepo.findByNameContainingIgnoreCase(name);
 	}
+	
 }

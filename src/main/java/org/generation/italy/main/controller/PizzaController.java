@@ -109,9 +109,9 @@ public class PizzaController {
 	}
 	
 	@GetMapping("/pizza/delete/{id}")
-	public String deletePizza(@PathVariable("id") int id) {
+	public String deletePizza(@PathVariable("id") Pizza pizza) {
 		
-		pizzaService.deletePizzaById(id);
+		pizzaService.delete(pizza);
 		return "redirect:/";
 	}
 	
