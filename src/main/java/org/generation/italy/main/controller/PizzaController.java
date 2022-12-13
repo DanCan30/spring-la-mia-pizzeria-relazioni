@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.generation.italy.main.pojo.Pizza;
+import org.generation.italy.main.pojo.Promotion;
 import org.generation.italy.main.service.PizzaService;
+import org.generation.italy.main.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,8 @@ public class PizzaController {
 	
 	@Autowired
 	private PizzaService pizzaService;
+	@Autowired
+	private PromotionService promotionService;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -57,8 +61,10 @@ public class PizzaController {
 	public String addPizza(Model model) {
 		
 		Pizza pizza = new Pizza();
+		List<Promotion> promotions = promotionService.findAll();
 		
 		model.addAttribute("pizza", pizza);
+		model.addAttribute("promotions", promotions);
 		
 		return "/pizza/create";
 	}
@@ -72,8 +78,7 @@ public class PizzaController {
 			return "redirect:/pizza/create";
 		}
 		
-		
-		pizzaService.save(pizza);
+		pizzaService.save(pizza);	
 		
 		return "redirect:/";
 	}
@@ -82,7 +87,7 @@ public class PizzaController {
 	public String editPizza(@PathVariable("id") int id, Model model) {
 		
 		Optional<Pizza> optPizza = pizzaService.findPizzaById(id);
-		
+		List<Promotion> promotions = promotionService.findAll();
 		if (optPizza.isEmpty()) {
 			return "404";
 		}
@@ -90,6 +95,7 @@ public class PizzaController {
 		Pizza pizza = optPizza.get();
 		
 		model.addAttribute("pizza", pizza);
+		model.addAttribute("promotions", promotions);
 		
 		return "/pizza/edit";
 	}

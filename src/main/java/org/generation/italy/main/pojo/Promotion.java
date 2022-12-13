@@ -41,7 +41,7 @@ public class Promotion {
 	private List<Pizza> pizzas;
 	
 	public Promotion() {};
-	public Promotion(String name, String startingDate, String endingDate) {
+	public Promotion(String name, LocalDate startingDate, LocalDate endingDate) {
 		setName(name);
 		setStartingDate(startingDate);
 		setEndingDate(endingDate);
@@ -61,20 +61,20 @@ public class Promotion {
 		return this.name;
 	}
 	
-	public void setStartingDate(String startingDate) {
+	public void setStartingDate(LocalDate startingDate) {
 	
-		LocalDate startingDateLD = LocalDate.parse(startingDate);
-		this.startingDate = startingDateLD;
+//		LocalDate startingDateLD = LocalDate.parse(startingDate);
+		this.startingDate = startingDate;
 	}
 	public LocalDate getStartingDate() {
 		return this.startingDate;
 	}	
 	
-	public void setEndingDate(String endingDate) {
+	public void setEndingDate(LocalDate endingDate) {
 
-		LocalDate endingDateLD = LocalDate.parse(endingDate);
+//		LocalDate endingDateLD = LocalDate.parse(endingDate);
 
-		this.endingDate = endingDateLD;
+		this.endingDate = endingDate;
 	}
 	public LocalDate getEndingDate() {
 		return this.endingDate;

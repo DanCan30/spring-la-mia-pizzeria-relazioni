@@ -1,5 +1,6 @@
 package org.generation.italy.main;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.generation.italy.main.pojo.Pizza;
@@ -27,9 +28,9 @@ public class SpringLaMiaPizzeriaRelazioniApplication implements CommandLineRunne
 	public void run(String... args) throws Exception {
 		
 
-		Promotion pr1 = new Promotion("Promozione1", "2022-10-10", "2022-10-12");
-		Promotion pr2 = new Promotion("Promozione2", "2022-10-30", "2022-11-12");
-		Promotion pr3 = new Promotion("Promozione3", "2020-11-20", "2021-01-20");
+		Promotion pr1 = new Promotion("Promozione1", LocalDate.of(2022, 10, 10), LocalDate.of(2022, 10, 12));
+		Promotion pr2 = new Promotion("Promozione2", LocalDate.of(2022, 10, 30), LocalDate.of(2022, 11, 12));
+		Promotion pr3 = new Promotion("Promozione3", LocalDate.of(2020, 11, 20), LocalDate.of(2021, 1, 20));
 		
 
 		promotionService.save(pr1);
@@ -52,8 +53,6 @@ public class SpringLaMiaPizzeriaRelazioniApplication implements CommandLineRunne
 			System.err.println(p);
 			
 		}
-		
-		promotionService.delete(promotionService.findById(2));
 		
 		System.out.println("-------------------");
 		

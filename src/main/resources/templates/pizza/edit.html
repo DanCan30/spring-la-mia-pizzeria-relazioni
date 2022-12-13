@@ -11,7 +11,7 @@
     
 	<div th:insert="fragments :: error()"></div>
 	
-	<div th:insert="fragments :: crud-form('/pizza/edit/{id} (id = *{id})', 'POST', 'Edit')"></div>
+	<div th:insert="fragments :: crud-form('/pizza/edit/{id} (id = *{id})', 'POST', 'Edit', ${promotions})"></div>
 	
 </body>
 </html>
