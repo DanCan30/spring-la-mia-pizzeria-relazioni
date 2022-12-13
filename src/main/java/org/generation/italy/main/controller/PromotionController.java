@@ -100,13 +100,16 @@ public class PromotionController {
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String deletePromotion(@ModelAttribute("promotion") Promotion promotion) {
+	public String deletePromotion(@PathVariable("id") int id) {
+		
+		Promotion promotion = promotionService.findById(id);
 		
 		List<Pizza> promotedPizzas = promotion.getPizzas();
+
+			for (Pizza p : promotedPizzas) {
+				p.setPromotion(null);
+			}
 		
-		for (Pizza p : promotedPizzas) {
-			p.setPromotion(null);
-		}
 		
 		promotionService.delete(promotion);
 		

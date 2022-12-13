@@ -37,7 +37,7 @@ public class Promotion {
 	@Column(name = "ending_date")
 	private LocalDate endingDate;
 	
-	@OneToMany(mappedBy = "promotion", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "promotion", cascade = CascadeType.PERSIST)
 	private List<Pizza> pizzas;
 	
 	public Promotion() {};

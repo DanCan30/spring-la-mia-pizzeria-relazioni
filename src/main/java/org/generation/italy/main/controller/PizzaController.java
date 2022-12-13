@@ -50,10 +50,15 @@ public class PizzaController {
 		}
 		
 		Pizza pizza = optPizza.get();
+		Promotion promotion = null;
+		
+		if (pizza.getPromotion() != null) {
+			promotion = pizza.getPromotion();
+		}
 		
 		model.addAttribute("pizza", pizza);
-		
-		return "/pizza/pizza";
+		model.addAttribute("promotion", promotion);
+		return "pizza/pizza";
 		
 	}
 	

@@ -17,6 +17,15 @@
 	<p>
 		[[*{description}]]
 	</p>
+	
+	<div th:if="${promotion != null}">
+		<h3>
+			Active promotion: [[${promotion.name}]] 
+			FROM [[${promotion.getFormattedDate(promotion.getStartingDate())}]] UNTIL [[${promotion.getFormattedDate(promotion.getEndingDate())}]] 
+		</h3>
+		
+	</div>
+	
 	<a href="/">
 		Go back
 	</a>
