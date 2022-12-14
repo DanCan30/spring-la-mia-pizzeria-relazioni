@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.generation.italy.main.interfaces.PriceableInt;
 
+import jakarta.annotation.Nullable;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -48,7 +50,8 @@ public class Pizza implements PriceableInt {
 	@JoinColumn(name = "promotion_id", nullable = true)
 	private Promotion promotion;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@Nullable
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	private Set<Ingredient> ingredients;
 	
 	public Pizza() {}

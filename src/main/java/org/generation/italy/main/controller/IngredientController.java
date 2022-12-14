@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,10 +86,10 @@ public class IngredientController {
 	}
 	
 	@PostMapping("/edit/{id}")
-	public String updateIngredient(@ModelAttribute("ingredient") Ingredient ing, @Valid Ingredient ingredient) {
+	public String updateIngredient(@Valid Ingredient ingredient) {
 
 		List<Pizza> ingredientPizzas = ingredient.getPizzas();
-		Ingredient oldDBIngredient = ingredientService.findById(ing.getId());
+		Ingredient oldDBIngredient = ingredientService.findById(ingredient.getId());
 		
 		for(Pizza p : oldDBIngredient.getPizzas()) {
 			p.getIngredients().remove(ingredient);
@@ -107,6 +106,15 @@ public class IngredientController {
 	
 	@GetMapping("/delete/{id}")
 	public String deleteIngredient(@PathVariable("id") int id, Ingredient ingredient) {
+		
+		List<Pizza> ingredientPizzas = ingredientService.findWithPizzas(ingredient);
+		
+//		if(ingredientPizzas != null ) {
+			
+			for(Pizza p : ingredientPizzas) {
+				p.getIngredients().remove(ingredient);
+			}
+//		}
 		
 		ingredientService.delete(ingredient);
 		return "redirect:/ingredient";

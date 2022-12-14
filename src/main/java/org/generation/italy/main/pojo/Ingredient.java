@@ -2,6 +2,7 @@ package org.generation.italy.main.pojo;
 
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +27,8 @@ public class Ingredient {
 	@NotBlank(message = "The name is necessary")
 	private String name;
 	
-	@ManyToMany(mappedBy = "ingredients", cascade = CascadeType.REMOVE)
+	@Nullable
+	@ManyToMany(mappedBy = "ingredients", cascade = CascadeType.DETACH)
 	private List<Pizza> pizzas;
 	
 	public Ingredient() {};
@@ -62,7 +64,10 @@ public class Ingredient {
 	
 	@Override
 	public int hashCode() {
-		return getId();
+		if(this.id != null)
+			return getId();
+		
+		return 0;
 	}
 	
 	@Override
