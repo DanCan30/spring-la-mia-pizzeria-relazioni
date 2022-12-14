@@ -2,9 +2,12 @@ package org.generation.italy.main.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import org.generation.italy.main.pojo.Ingredient;
 import org.generation.italy.main.pojo.Pizza;
 import org.generation.italy.main.pojo.Promotion;
+import org.generation.italy.main.service.IngredientService;
 import org.generation.italy.main.service.PizzaService;
 import org.generation.italy.main.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,8 @@ public class PizzaController {
 	private PizzaService pizzaService;
 	@Autowired
 	private PromotionService promotionService;
+	@Autowired
+	private IngredientService ingredientService;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -56,7 +61,10 @@ public class PizzaController {
 			promotion = pizza.getPromotion();
 		}
 		
+		Set<Ingredient> ingredients = pizza.getIngredients();
+		
 		model.addAttribute("pizza", pizza);
+		model.addAttribute("ingredients", ingredients);
 		model.addAttribute("promotion", promotion);
 		return "pizza/pizza";
 		
@@ -67,11 +75,13 @@ public class PizzaController {
 		
 		Pizza pizza = new Pizza();
 		List<Promotion> promotions = promotionService.findAll();
+		List<Ingredient> ingredients = ingredientService.findAll();
 		
 		model.addAttribute("pizza", pizza);
 		model.addAttribute("promotions", promotions);
+		model.addAttribute("ingredients", ingredients);
 		
-		return "/pizza/create";
+		return "pizza/create";
 	}
 	
 	@PostMapping("/pizza/create")
@@ -93,6 +103,7 @@ public class PizzaController {
 		
 		Optional<Pizza> optPizza = pizzaService.findPizzaById(id);
 		List<Promotion> promotions = promotionService.findAll();
+		List<Ingredient> ingredients = ingredientService.findAll();
 		if (optPizza.isEmpty()) {
 			return "404";
 		}
@@ -101,8 +112,9 @@ public class PizzaController {
 		
 		model.addAttribute("pizza", pizza);
 		model.addAttribute("promotions", promotions);
+		model.addAttribute("ingredients", ingredients);
 		
-		return "/pizza/edit";
+		return "pizza/edit";
 	}
 	
 	@PostMapping("/pizza/edit/{id}")

@@ -1,14 +1,20 @@
 package org.generation.italy.main.pojo;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.generation.italy.main.interfaces.PriceableInt;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -42,6 +48,9 @@ public class Pizza implements PriceableInt {
 	@JoinColumn(name = "promotion_id", nullable = true)
 	private Promotion promotion;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Ingredient> ingredients;
+	
 	public Pizza() {}
 	
 	public Pizza(String name, String description, int price, Promotion promotion) {
@@ -49,6 +58,11 @@ public class Pizza implements PriceableInt {
 		setDescription(description);
 		setPrice(price);
 		setPromotion(promotion);
+	}
+	
+	public Pizza(String name, String description, int price, Promotion promotion, Ingredient...ingredients) {
+		this(name, description,price,promotion);
+		setIngredients(new HashSet<>(Arrays.asList(ingredients)));
 	}
 
 	public void setId(int id) {
@@ -84,6 +98,14 @@ public class Pizza implements PriceableInt {
 	}
 	public Promotion getPromotion() {
 		return this.promotion;
+	}
+	
+	public void setIngredients(Set<Ingredient> ingredients) {
+		
+		this.ingredients = ingredients;
+	}
+	public Set<Ingredient> getIngredients() {
+		return this.ingredients;
 	}
 	
 	@Override
