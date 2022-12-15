@@ -10,10 +10,12 @@ import org.generation.italy.main.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 
@@ -60,7 +62,13 @@ public class IngredientController {
 	}
 	
 	@PostMapping("/create")
-	public String storeIngredient(@Valid Ingredient ingredient) {
+	public String storeIngredient(@Valid Ingredient ingredient,
+								BindingResult bindingResult, RedirectAttributes redirectAttributes ) {
+		
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			return "redirect:/ingredient/create";
+		}
 		
 		List<Pizza> pizzas = ingredient.getPizzas();
 		
@@ -86,7 +94,13 @@ public class IngredientController {
 	}
 	
 	@PostMapping("/edit/{id}")
-	public String updateIngredient(@Valid Ingredient ingredient) {
+	public String updateIngredient(@Valid Ingredient ingredient,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes ) {
+		
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			return "redirect:/ingredient/edit/" + ingredient.getId();
+		}
 
 		List<Pizza> ingredientPizzas = ingredient.getPizzas();
 		Ingredient oldDBIngredient = ingredientService.findById(ingredient.getId());

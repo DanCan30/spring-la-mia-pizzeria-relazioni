@@ -9,11 +9,13 @@ import org.generation.italy.main.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 
@@ -61,7 +63,13 @@ public class PromotionController {
 	}
 	
 	@PostMapping("/create")
-	public String storePromotion(@Valid @ModelAttribute("promotion") Promotion promotion) {
+	public String storePromotion(@Valid @ModelAttribute("promotion") Promotion promotion,
+								BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			return "redirect:/promotion/create";
+		}
 		
 		List<Pizza> promotedPizzas = promotion.getPizzas();
 		
@@ -87,7 +95,13 @@ public class PromotionController {
 	}
 	
 	@PostMapping("/edit/{id}")
-	public String updatePromotion(@Valid @ModelAttribute("promotion") Promotion promotion) {
+	public String updatePromotion(@Valid @ModelAttribute("promotion") Promotion promotion, 
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		if(bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			return "redirect:/promotion/edit/" + promotion.getId();
+		}
 		
 		List<Pizza> promotedPizzas = promotion.getPizzas();
 		

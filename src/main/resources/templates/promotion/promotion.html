@@ -12,18 +12,22 @@
 		[[*{name}]]
 	</h2>
 	<h4>
-		[[*{getFormattedDate(getStartingDate())}]] - [[*{getFormattedDate(getEndingDate())}]]
+		FROM [[*{getFormattedDate(getStartingDate())}]] TO [[*{getFormattedDate(getEndingDate())}]]
 	</h4>
 	
-	<ul>
+	<div th:if="${pizzas.size() > 0}">
 		
-		<li 
-			th:each="pizza : ${pizzas}"
-			th:object="${pizza}"
-			th:text="|*{name} - *{description}|"
-		></li>
-		
-	</ul>
+		<h3>Applied on: </h3>
+		<ul>
+			
+			<li 
+				th:each="pizza : ${pizzas}"
+				th:object="${pizza}"
+				th:text="|*{name} - *{description}|"
+			></li>
+			
+		</ul>
+	</div>
 	
 	<a href="/promotion">
 		Go back

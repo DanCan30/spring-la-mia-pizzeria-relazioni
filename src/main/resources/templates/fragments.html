@@ -6,7 +6,7 @@
 		th:action="${action}"
 		th:method="${method}"
 		>
-		<input type="number" name="id" th:field="*{id}" hidden>
+		<input type="number" name="id" th:field="*{id}" style="display: none">
 		<label for="name">Name</label>
 		<input type="text" name="name" th:field="*{name}"><br>
 		
@@ -59,7 +59,7 @@
 		th:action="${action}"
 		th:method="${method}"
 		>
-		<input type="number" name="id" th:field="*{id}" hidden>
+		<input type="number" name="id" th:field="*{id}" style="display: none">
 		<label for="name">Name</label>
 		<input type="text" name="name" th:field="*{name}"><br>
 		
@@ -92,7 +92,7 @@
 		th:action="${action}"
 		th:method="${method}"
 		>
-		<input type="number" name="id" th:field="*{id}">
+		<input type="number" name="id" th:field="*{id}" style="display: none" th:value="*{id}">
 		<label for="name">Name</label>
 		<input type="text" name="name" th:field="*{name}"><br>
 		

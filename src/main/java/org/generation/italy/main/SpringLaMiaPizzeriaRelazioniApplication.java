@@ -1,7 +1,6 @@
 package org.generation.italy.main;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 import org.generation.italy.main.pojo.Ingredient;
 import org.generation.italy.main.pojo.Pizza;
@@ -60,7 +59,7 @@ public class SpringLaMiaPizzeriaRelazioniApplication implements CommandLineRunne
 		ingredientService.save(mushrooms);
 		ingredientService.save(cheese);		
 		
-		Pizza p1 = new Pizza("Pizza1", "Margherita", 6, pr2, tomato, mozzarella);
+		Pizza p1 = new Pizza("Pizza1", "Margherita", 6, null);
 		Pizza p2 = new Pizza("Pizza2", "Diavola", 8, pr2);
 		Pizza p3 = new Pizza("Pizza3", "Rossa", 5, pr1);
 		Pizza p4 = new Pizza("Pizza4", "Capricciosa", 10, null);
@@ -68,16 +67,7 @@ public class SpringLaMiaPizzeriaRelazioniApplication implements CommandLineRunne
 		pizzaService.save(p1);
 		pizzaService.save(p2);
 		pizzaService.save(p3);
-		pizzaService.save(p4);
-		
-		Pizza pizza = pizzaService.findPizzaById(1).get();
-		
-		Set<Ingredient> pizzaIngredients = pizza.getIngredients();
-		
-		for(Ingredient i : pizzaIngredients) {
-			System.err.println(i);
-		}
-		
+		pizzaService.save(p4);	
 		
 	}
 
